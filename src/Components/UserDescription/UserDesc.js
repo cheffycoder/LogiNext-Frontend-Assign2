@@ -1,6 +1,5 @@
 import React from "react";
 import { MailOutlined, PhoneOutlined, GlobalOutlined } from "@ant-design/icons";
-import "../Card.css";
 
 const UserDesc = ({ desc }) => {
   return (

@@ -1,49 +1,66 @@
 import React, { useState, useEffect } from "react";
 import UserCard from "../UserCard/UserCard";
-import "../../App.css";
 import Spinner from "../Spinner/Spinner";
 import { getAllUsers, deleteUser } from "../../Service/ApiHandler";
+import "../Spinner/Spinner.css";
+import "./CardList.css";
 
 const CardList = () => {
   const [Users, setUsers] = useState([]);
   const [Loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    getAllUsers().then((response) => setUsers(response.data));
-    setLoading(false);
+  const fetchData = async () => {
+    try {
+      const res = await getAllUsers();
+      setUsers(res.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    /* Uncomment if you want to show the loader for 3 sec initially
+  useEffect(() => {
+    // getAllUsers().then((response) => setUsers(response.data));
+    // setLoading(false);
+
+    //Uncomment if you want to show the loader for 3 sec initially
     setTimeout(() => {
-      getAllUsers().then((response) => setUsers(response.data));
+      fetchData();
     }, 3000);
-    setLoading(false);
-  */
   }, [Users]);
 
-  const removeUser = (userId) => {
-    deleteUser(userId).then(() => {
+  const removeUser = async (userId) => {
+    try {
+      await deleteUser(userId);
+      alert("User Deleted");
       setUsers(Users.filter((user) => user.id !== userId));
-    });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <div className="card-list-container">
-      {Loading ? (
-        <Spinner />
-      ) : (
-        Users.map((user) => {
-          return (
-            <div className="card-container" key={user.id}>
-              <UserCard
-                user={user}
-                usersList={Users}
-                Delete={removeUser}
-                setUsers={setUsers}
-              />
-            </div>
-          );
-        })
-      )}
+    <div className="container">
+      <div className="card-list-container">
+        {Loading ? (
+          <div className="spinner-div">
+            <Spinner />
+          </div>
+        ) : (
+          Users.map((user) => {
+            return (
+              <div className="card-container" key={user.id}>
+                <UserCard
+                  user={user}
+                  usersList={Users}
+                  Delete={removeUser}
+                  setUsers={setUsers}
+                />
+              </div>
+            );
+          })
+        )}
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../Card.css";
+import "./UserCard.css";
 import { Card } from "antd";
 import BasicModal from "../../Modal/BasicModal";
 
