@@ -1,14 +1,18 @@
 @import "~antd/dist/antd.css";
 
 * {
-  margin: 0px;
-  padding: 0px;
+  margin: 0%;
+  padding: 0%;
   box-sizing: border-box;
 }
 
-.card-container {
-  width: 100%;
+.outerUserCard {
+  width: 25%;
+}
+
+.innerUserCard {
   margin: 15px;
+  /* margin: 10px; */
 }
 
 .ant-card-cover {
@@ -37,24 +41,26 @@ button {
 }
 
 /* Media Queries */
-
-@media (min-width: 780px) {
-  .card-container {
-    box-sizing: border-box;
-    width: 46.17%;
+@media (max-width: 630px) {
+  .outerUserCard {
+    width: 100%;
   }
 }
 
-@media (min-width: 990px) {
-  .card-container {
-    box-sizing: border-box;
-    width: 30.3%;
+@media (min-width: 630px) {
+  .outerUserCard {
+    width: 50%;
   }
 }
 
-@media (min-width: 1200px) {
-  .card-container {
-    box-sizing: border-box;
-    width: 22.5%;
+@media (min-width: 945px) {
+  .outerUserCard {
+    width: 33.33%;
+  }
+}
+
+@media (min-width: 1260px) {
+  .outerUserCard {
+    width: 25%;
   }
 }

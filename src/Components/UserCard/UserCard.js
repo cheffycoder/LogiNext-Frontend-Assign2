@@ -9,66 +9,70 @@ import {
   DeleteFilled,
   EditOutlined,
 } from "@ant-design/icons";
+
 import UserDesc from "../UserDescription/UserDesc";
-import { UpdateLike } from "../../Service/ApiHandler";
+import ToggleLike from "../../UserFunctionality/ToggleLike";
+import RemoveUser from "../../UserFunctionality/RemoveUser";
+// import DeleteUser from "../../Service/ApiHandler";
 
 const { Meta } = Card;
 
-const UserCard = ({ setUsers, user, usersList, Delete }) => {
+const UserCard = ({ usersList, setUsers, user }) => {
   const [isLiked, setIsLiked] = useState(user.like);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const toggleLike = (userId) => {
-    if (isLiked) {
-      UpdateLike(userId, !isLiked).then(() => setIsLiked(false));
-    } else {
-      UpdateLike(userId, !isLiked).then(() => setIsLiked(true));
-    }
-  };
+  // const removeUser = async (userId) => {
+  //   try {
+  //     await deleteUser(userId);
+  //     alert("User Deleted");
+  //     setUsers(Users.filter((user) => user.id !== userId));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const showModal = () => {
     setIsModalVisible(true);
   };
 
-  const Like = isLiked ? (
-    <HeartFilled style={{ color: "red", fontSize: "20px" }} />
-  ) : (
-    <HeartOutlined style={{ color: "red", fontSize: "20px" }} />
-  );
-
   return (
-    <div className="card-end">
-      <Card
-        cover={
-          <img
-            alt="avatar"
-            src={`https://avatars.dicebear.com/v2/avataaars/${user.name}.svg?options[mood][]=happy`}
-          />
-        }
-        actions={[
-          <button onClick={() => toggleLike(user.id)}>{Like}</button>,
-          <EditOutlined
-            key="edit"
-            onClick={showModal}
-            style={{ fontSize: "18px" }}
-          />,
-          <DeleteFilled
-            key={user.id}
-            onClick={() => Delete(user.id)}
-            style={{ fontSize: "18px" }}
-          />,
-        ]}
-      >
-        <Meta title={user.name} description={<UserDesc desc={user} />} />
-        <BasicModal
-          setIsModalVisible={setIsModalVisible}
-          isModalVisible={isModalVisible}
-          usersList={usersList}
-          userDetails={user}
-          setUsers={setUsers}
+    <Card
+      className="innerUserCard"
+      cover={
+        <img
+          alt="avatar"
+          src={`https://avatars.dicebear.com/v2/avataaars/${user.name}.svg?options[mood][]=happy`}
         />
-      </Card>
-    </div>
+      }
+      actions={[
+        <button onClick={() => ToggleLike(user.id, isLiked, setIsLiked)}>
+          {isLiked ? (
+            <HeartFilled style={{ color: "red", fontSize: "20px" }} />
+          ) : (
+            <HeartOutlined style={{ color: "red", fontSize: "20px" }} />
+          )}
+        </button>,
+        <EditOutlined
+          key="edit"
+          onClick={showModal}
+          style={{ fontSize: "18px" }}
+        />,
+        <DeleteFilled
+          key={user.id}
+          onClick={() => RemoveUser(user.id, usersList, setUsers)}
+          style={{ fontSize: "18px" }}
+        />,
+      ]}
+    >
+      <Meta title={user.name} description={<UserDesc desc={user} />} />
+      <BasicModal
+        setIsModalVisible={setIsModalVisible}
+        isModalVisible={isModalVisible}
+        usersList={usersList}
+        userDetails={user}
+        setUsers={setUsers}
+      />
+    </Card>
   );
 };
 

@@ -15,6 +15,7 @@ const BasicModal = ({
   const [email, setEmail] = useState(userDetails.email);
   const [phone, setPhone] = useState(userDetails.phone);
   const [website, setWebsite] = useState(userDetails.website);
+  // const payLoad = ;
 
   const handleOk = () => {
     UpdateDetails(userDetails.id, {
@@ -22,22 +23,18 @@ const BasicModal = ({
       email,
       phone,
       website,
-    }).then((res) =>
+    }).then((res) => {
+      console.log(res.data);
       setUsers(
         usersList.map((user) => {
-          if (res.data.id === user.id) {
-            return {
-              name: res.data.name,
-              email: res.data.email,
-              phone: res.data.phone,
-              website: res.data.website,
-              ...user,
-            };
+          console.log("Hola from Basic Modal map");
+          if (user.id === res.data.id) {
+            return res.data;
           }
           return user;
         })
-      )
-    );
+      );
+    });
     setIsModalVisible(false);
   };
 

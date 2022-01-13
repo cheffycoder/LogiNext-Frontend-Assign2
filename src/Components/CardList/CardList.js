@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import UserCard from "../UserCard/UserCard";
 import Spinner from "../Spinner/Spinner";
-import { getAllUsers, deleteUser } from "../../Service/ApiHandler";
+import { getAllUsers } from "../../Service/ApiHandler";
 import "../Spinner/Spinner.css";
 import "./CardList.css";
 
@@ -20,24 +20,12 @@ const CardList = () => {
   };
 
   useEffect(() => {
-    // getAllUsers().then((response) => setUsers(response.data));
-    // setLoading(false);
-
+    fetchData();
     //Uncomment if you want to show the loader for 3 sec initially
-    setTimeout(() => {
-      fetchData();
-    }, 3000);
-  }, [Users]);
-
-  const removeUser = async (userId) => {
-    try {
-      await deleteUser(userId);
-      alert("User Deleted");
-      setUsers(Users.filter((user) => user.id !== userId));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    // setTimeout(() => {
+    //   fetchData();
+    // }, 3000);
+  }, []);
 
   return (
     <div className="container">
@@ -49,13 +37,8 @@ const CardList = () => {
         ) : (
           Users.map((user) => {
             return (
-              <div className="card-container" key={user.id}>
-                <UserCard
-                  user={user}
-                  usersList={Users}
-                  Delete={removeUser}
-                  setUsers={setUsers}
-                />
+              <div className="outerUserCard" key={user.id}>
+                <UserCard user={user} usersList={Users} setUsers={setUsers} />
               </div>
             );
           })
