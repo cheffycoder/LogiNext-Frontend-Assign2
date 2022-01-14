@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
 import { Form, Input } from "antd";
-import "./BasicModal.css";
-import { UpdateDetails } from "../Service/ApiHandler";
+import "./UpdateDetailsModal.css";
+import { UpdateDetailsAPI } from "../../Service/ApiHandler";
 
-const BasicModal = ({
+const UpdateDetailsModal = ({
   setIsModalVisible,
   setUsers,
   usersList,
@@ -15,19 +15,16 @@ const BasicModal = ({
   const [email, setEmail] = useState(userDetails.email);
   const [phone, setPhone] = useState(userDetails.phone);
   const [website, setWebsite] = useState(userDetails.website);
-  // const payLoad = ;
 
   const handleOk = () => {
-    UpdateDetails(userDetails.id, {
+    UpdateDetailsAPI(userDetails.id, {
       name,
       email,
       phone,
       website,
     }).then((res) => {
-      console.log(res.data);
       setUsers(
         usersList.map((user) => {
-          console.log("Hola from Basic Modal map");
           if (user.id === res.data.id) {
             return res.data;
           }
@@ -83,4 +80,4 @@ const BasicModal = ({
   );
 };
 
-export default BasicModal;
+export default UpdateDetailsModal;

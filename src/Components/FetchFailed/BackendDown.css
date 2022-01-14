@@ -1,0 +1,30 @@
+.backend-down-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15%;
+  padding: 10px;
+}
+
+.backend-down-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px;
+}
+
+.backend-down-text h1 {
+  margin: 0px;
+  color: #e1e1e1;
+}
+
+.backend-down-text h4 {
+  color: #e1e1e1;
+  margin: 0px;
+}
+
+img {
+  width: 50%;
+  height: 50%;
+  opacity: 0.9;
+}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./UserCard.css";
 import { Card } from "antd";
-import BasicModal from "../../Modal/BasicModal";
+import UpdateDetailsModal from "../../Modal/UpdateDetails/UpdateDetailsModal";
 
 import {
   HeartFilled,
@@ -13,23 +13,12 @@ import {
 import UserDesc from "../UserDescription/UserDesc";
 import ToggleLike from "../../UserFunctionality/ToggleLike";
 import RemoveUser from "../../UserFunctionality/RemoveUser";
-// import DeleteUser from "../../Service/ApiHandler";
 
 const { Meta } = Card;
 
-const UserCard = ({ usersList, setUsers, user }) => {
+const UserCard = ({ usersList, setUsers, user, fetchPage, currentPage }) => {
   const [isLiked, setIsLiked] = useState(user.like);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  // const removeUser = async (userId) => {
-  //   try {
-  //     await deleteUser(userId);
-  //     alert("User Deleted");
-  //     setUsers(Users.filter((user) => user.id !== userId));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -59,13 +48,13 @@ const UserCard = ({ usersList, setUsers, user }) => {
         />,
         <DeleteFilled
           key={user.id}
-          onClick={() => RemoveUser(user.id, usersList, setUsers)}
+          onClick={() => RemoveUser(user.id, fetchPage, currentPage)}
           style={{ fontSize: "18px" }}
         />,
       ]}
     >
       <Meta title={user.name} description={<UserDesc desc={user} />} />
-      <BasicModal
+      <UpdateDetailsModal
         setIsModalVisible={setIsModalVisible}
         isModalVisible={isModalVisible}
         usersList={usersList}

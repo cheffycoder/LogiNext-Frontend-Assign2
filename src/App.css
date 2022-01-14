@@ -5,3 +5,13 @@
   padding: 0px;
   box-sizing: border-box;
 }
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pagination-container {
+  margin: 20px 0px;
+}
