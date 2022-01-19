@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import AddUserModal from "../../modal/AddUserModal";
-import "../../styles/Header.css";
 import ThemeSwitcher from "../ThemeSwitcher";
+
+import "../../styles/Header.css";
+import { Affix } from "antd";
 
 const Header = ({ currentPage, totalUsers, fetchPage }) => {
   const [isAddUserModalVisible, setIsAddUserModalVisible] = useState(false);
@@ -13,9 +15,14 @@ const Header = ({ currentPage, totalUsers, fetchPage }) => {
   return (
     <>
       <div className="header-container">
-        <ThemeSwitcher />
-        <button onClick={showAddUserModal}>Add user</button>
+        <Affix offsetTop={0}>
+          <div className="header">
+            <ThemeSwitcher />
+            <button onClick={showAddUserModal}>Add user</button>
+          </div>
+        </Affix>
       </div>
+
       <AddUserModal
         isAddUserModalVisible={isAddUserModalVisible}
         setIsAddUserModalVisible={setIsAddUserModalVisible}
