@@ -1,0 +1,16 @@
+.header-container {
+  border-bottom: 1px solid #e8e8e8;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 7px 10px;
+  background: whitesmoke;
+}
+
+.header-container button {
+  color: #1890ff;
+  border: 1px solid #1890ff;
+  border-radius: 3px;
+  padding: 4px 10px;
+  font-weight: 500;
+}

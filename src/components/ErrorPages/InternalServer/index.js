@@ -1,17 +1,18 @@
 import React from "react";
-import "./BackendDown.css";
-import ServerDownSVG from "../../Assets/ServerDown.svg";
+import "../../../styles/FetchFailed.css";
+import ServerDownSVG from "../../../assets/serverdown.svg";
 
-const BackendDown = () => {
+const InternalServerError = () => {
+  // console.log(errorMessage);
   return (
     <div className="backend-down-container">
       <img src={ServerDownSVG} alt="server-down"></img>
       <div className="backend-down-text">
         <h1>"Oops, There is some problem."</h1>
-        <h4>Response</h4>
+        {/* <h4>{errorMessage}</h4> */}
       </div>
     </div>
   );
 };
 
-export default BackendDown;
+export default InternalServerError;

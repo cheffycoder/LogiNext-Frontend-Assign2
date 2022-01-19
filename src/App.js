@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { getUsersPageAPI } from "../src/Service/ApiHandler";
-import CardList from "./Components/CardList/CardList";
-import Spinner from "./Components/Spinner/Spinner";
+import CardList from "./components/CardList";
+import Spinner from "./components/Spinner";
 import { Pagination } from "antd";
+import { getUsersPageAPI } from "./services/apiHandler";
+import EmptyState from "./components/EmptyState";
+import Header from "./containers/Header";
 
-import "./Components/Spinner/Spinner.css";
+import "./styles/Spinner.css";
 import "./App.css";
-import EmptyState from "./Components/EmptyState/EmptyState";
-// import BackendDown from "./Components/FetchFailed/BackendDown";
 
 function App() {
   const [Users, setUsers] = useState([]);
@@ -17,19 +17,19 @@ function App() {
 
   // Have to take care that page No here is 1 greater than the backend.
   // So, while making fetchCall, pass arguments 1 less than the required page. i.e fetchPage(requiredPage-1);
-  const fetchPage = async (pageNo) => {
+  const fetchpage = async (pageNo) => {
     try {
-      console.log("fetching page: ", pageNo);
-      const res = await getUsersPageAPI(pageNo);
-      if (res.data.Data.length === 0 && res.data["TotalUsers"] !== 0) {
-        console.log("Calling page:", pageNo - 1);
-        setCurrentPage(pageNo);
+      // We have to fetch 1 page less than the pageAsked.
+      const res = await getUsersPageAPI(pageNo - 1);
 
-        // fetchPage(CurrentPage);  --> Note: If you want to rerender just change currentPage and don't call fetch page anywhere
+      // There are no users in this page make call to 1 page less --> Helps while deletion
+      if (res.data.Data.length === 0 && res.data["TotalUsers"] !== 0) {
+        setCurrentPage(pageNo - 1);
       } else {
         setUsers(res.data["Data"]);
         setTotalUsers(res.data["TotalUsers"]);
-        setCurrentPage(pageNo + 1);
+
+        setCurrentPage(pageNo);
         setLoading(false);
       }
     } catch (error) {
@@ -38,12 +38,14 @@ function App() {
   };
 
   useEffect(() => {
-    fetchPage(CurrentPage - 1);
+    fetchpage(CurrentPage);
 
     //Uncomment if you want to show the loader for 3 sec initially
-    // setTimeout(() => {
-    // fetchPage(CurrentPage - 1);
-    // }, 3000);
+    /*
+    setTimeout(() => {
+    fetchPage(CurrentPage - 1);
+    }, 3000);
+    */
   }, [CurrentPage]);
 
   return (
@@ -53,13 +55,25 @@ function App() {
           <Spinner />
         </div>
       ) : !TotalUsers ? (
-        <EmptyState />
+        <>
+          <Header
+            fetchpage={fetchpage}
+            currentPage={CurrentPage}
+            totalusers={TotalUsers}
+          />
+          <EmptyState />
+        </>
       ) : (
         <>
+          <Header
+            fetchpage={fetchpage}
+            currentPage={CurrentPage}
+            totalusers={TotalUsers}
+          />
           <CardList
             Users={Users}
             setUsers={setUsers}
-            fetchPage={fetchPage}
+            fetchpage={fetchpage}
             currentPage={CurrentPage}
           />
           <Pagination
@@ -67,6 +81,7 @@ function App() {
             onChange={(Currentpage) => {
               setCurrentPage(Currentpage);
             }}
+            current={CurrentPage}
             defaultCurrent={1} // Default Page to open for first render
             defaultPageSize={4} // No of elements in a page
             total={TotalUsers} // Total no of users overall, and according to this Total pages will be decided.

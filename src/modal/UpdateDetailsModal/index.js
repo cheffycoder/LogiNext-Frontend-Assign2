@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
 import { Form, Input } from "antd";
-import "./UpdateDetailsModal.css";
-import { UpdateDetailsAPI } from "../../Service/ApiHandler";
+import { UpdateDetailsAPI } from "../../services/apiHandler";
+import "../../styles/UpdateDetailsModal.css";
 
 const UpdateDetailsModal = ({
-  setIsModalVisible,
+  setIsUpdateModalVisible,
   setUsers,
   usersList,
-  isModalVisible,
+  isUpdateModalVisible,
   userDetails,
 }) => {
   const [name, setName] = useState(userDetails.name);
@@ -16,13 +16,15 @@ const UpdateDetailsModal = ({
   const [phone, setPhone] = useState(userDetails.phone);
   const [website, setWebsite] = useState(userDetails.website);
 
+  const payload = {
+    name,
+    email,
+    phone,
+    website,
+  };
+
   const handleOk = () => {
-    UpdateDetailsAPI(userDetails.id, {
-      name,
-      email,
-      phone,
-      website,
-    }).then((res) => {
+    UpdateDetailsAPI(userDetails.id, payload).then((res) => {
       setUsers(
         usersList.map((user) => {
           if (user.id === res.data.id) {
@@ -32,18 +34,18 @@ const UpdateDetailsModal = ({
         })
       );
     });
-    setIsModalVisible(false);
+    setIsUpdateModalVisible(false);
   };
 
   const handleCancel = () => {
-    setIsModalVisible(false);
+    setIsUpdateModalVisible(false);
   };
 
   return (
     <div>
       <Modal
         title="Edit User Details"
-        visible={isModalVisible}
+        visible={isUpdateModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
       >

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./UserCard.css";
+import "../../styles/UserCard.css";
 import { Card } from "antd";
-import UpdateDetailsModal from "../../Modal/UpdateDetails/UpdateDetailsModal";
+import UpdateDetailsModal from "../../modal/UpdateDetailsModal";
 
 import {
   HeartFilled,
@@ -10,18 +10,18 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 
-import UserDesc from "../UserDescription/UserDesc";
-import ToggleLike from "../../UserFunctionality/ToggleLike";
-import RemoveUser from "../../UserFunctionality/RemoveUser";
+import UserDesc from "../../components/UserDescription";
+import ToggleLike from "../../functionalities/toggleLike";
+import RemoveUser from "../../functionalities/removeUser";
 
 const { Meta } = Card;
 
-const UserCard = ({ usersList, setUsers, user, fetchPage, currentPage }) => {
+const UserCard = ({ usersList, setUsers, user, fetchpage, currentPage }) => {
   const [isLiked, setIsLiked] = useState(user.like);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
 
   const showModal = () => {
-    setIsModalVisible(true);
+    setIsUpdateModalVisible(true);
   };
 
   return (
@@ -48,15 +48,15 @@ const UserCard = ({ usersList, setUsers, user, fetchPage, currentPage }) => {
         />,
         <DeleteFilled
           key={user.id}
-          onClick={() => RemoveUser(user.id, fetchPage, currentPage)}
+          onClick={() => RemoveUser(user.id, currentPage, fetchpage)}
           style={{ fontSize: "18px" }}
         />,
       ]}
     >
       <Meta title={user.name} description={<UserDesc desc={user} />} />
       <UpdateDetailsModal
-        setIsModalVisible={setIsModalVisible}
-        isModalVisible={isModalVisible}
+        setIsUpdateModalVisible={setIsUpdateModalVisible}
+        isUpdateModalVisible={isUpdateModalVisible}
         usersList={usersList}
         userDetails={user}
         setUsers={setUsers}

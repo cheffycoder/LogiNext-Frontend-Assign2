@@ -1,4 +1,4 @@
-import { UpdateLikeAPI } from "../Service/ApiHandler";
+import { UpdateLikeAPI } from "../services/apiHandler";
 
 const ToggleLike = (userId, isLiked, setIsLiked) => {
   if (isLiked) {

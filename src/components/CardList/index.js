@@ -1,11 +1,10 @@
 import React from "react";
-import UserCard from "../UserCard/UserCard";
-// import Spinner from "../Spinner/Spinner";
+import UserCard from "../../containers/UserCard";
 
-import "../Spinner/Spinner.css";
-import "./CardList.css";
+import "../../styles/Spinner.css";
+import "../../styles/CardList.css";
 
-const CardList = ({ Users, setUsers, fetchPage, currentPage }) => {
+const CardList = ({ Users, setUsers, fetchpage, currentPage }) => {
   return (
     <div className="card-list-container">
       {Users.map((user) => {
@@ -15,7 +14,7 @@ const CardList = ({ Users, setUsers, fetchPage, currentPage }) => {
               user={user}
               usersList={Users}
               setUsers={setUsers}
-              fetchPage={fetchPage}
+              fetchpage={fetchpage}
               currentPage={currentPage}
             />
           </div>
