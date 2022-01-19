@@ -16,7 +16,7 @@ import RemoveUser from "../../functionalities/removeUser";
 
 const { Meta } = Card;
 
-const UserCard = ({ usersList, setUsers, user, fetchpage, currentPage }) => {
+const UserCard = ({ usersList, setUsers, user, fetchPage, currentPage }) => {
   const [isLiked, setIsLiked] = useState(user.like);
   const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
 
@@ -48,7 +48,7 @@ const UserCard = ({ usersList, setUsers, user, fetchpage, currentPage }) => {
         />,
         <DeleteFilled
           key={user.id}
-          onClick={() => RemoveUser(user.id, currentPage, fetchpage)}
+          onClick={() => RemoveUser(user.id, currentPage, fetchPage)}
           style={{ fontSize: "18px" }}
         />,
       ]}

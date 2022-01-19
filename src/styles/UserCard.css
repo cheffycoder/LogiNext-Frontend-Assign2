@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 
-.outerUserCard {
+.outer-user-card {
   width: 25%;
 }
 
@@ -34,7 +34,6 @@ button {
 }
 
 .ant-card-body .list {
-  color: rgba(0, 0, 0, 0.65);
   padding: 0px;
   display: flex;
   flex-direction: row;

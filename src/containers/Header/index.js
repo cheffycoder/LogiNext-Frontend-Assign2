@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import AddUserModal from "../../modal/AddUserModal";
 import "../../styles/Header.css";
+import ThemeSwitcher from "../ThemeSwitcher";
 
-const Header = ({ currentPage, totalusers, fetchpage }) => {
+const Header = ({ currentPage, totalUsers, fetchPage }) => {
   const [isAddUserModalVisible, setIsAddUserModalVisible] = useState(false);
 
   const showAddUserModal = () => {
@@ -12,14 +13,15 @@ const Header = ({ currentPage, totalusers, fetchpage }) => {
   return (
     <>
       <div className="header-container">
+        <ThemeSwitcher />
         <button onClick={showAddUserModal}>Add user</button>
       </div>
       <AddUserModal
         isAddUserModalVisible={isAddUserModalVisible}
         setIsAddUserModalVisible={setIsAddUserModalVisible}
-        fetchpage={fetchpage}
+        fetchPage={fetchPage}
         currentPage={currentPage}
-        totalusers={totalusers}
+        totalUsers={totalUsers}
       />
     </>
   );

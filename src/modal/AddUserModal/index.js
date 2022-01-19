@@ -3,9 +3,6 @@ import { Modal, Button } from "antd";
 import { Form, Input } from "antd";
 import addUser from "../../functionalities/addUser";
 
-// import "../../styles/AddUserModal.css";
-// import { AddUserAPI } from "../../services/apiHandler";
-
 const layout = {
   labelCol: {
     span: 8,
@@ -18,9 +15,9 @@ const layout = {
 const AddUserModal = ({
   isAddUserModalVisible,
   setIsAddUserModalVisible,
-  fetchpage,
+  fetchPage,
   currentPage,
-  totalusers,
+  totalUsers,
 }) => {
   const [form] = Form.useForm();
 
@@ -48,8 +45,8 @@ const AddUserModal = ({
   const handleSubmit = () => {
     addUser(
       currentPage,
-      totalusers,
-      fetchpage,
+      totalUsers,
+      fetchPage,
       setIsAddUserModalVisible,
       payload
     );

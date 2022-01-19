@@ -1,10 +1,10 @@
 import { DeleteUserAPI } from "../services/apiHandler";
 
-const RemoveUser = async (userId, CurrentPage, fetchpage) => {
+const RemoveUser = async (userId, CurrentPage, fetchPage) => {
   try {
     await DeleteUserAPI(userId);
     alert("User Deleted");
-    fetchpage(CurrentPage);
+    fetchPage(CurrentPage);
   } catch (error) {
     console.log(error);
   }

@@ -5,19 +5,20 @@ import { Pagination } from "antd";
 import { getUsersPageAPI } from "./services/apiHandler";
 import EmptyState from "./components/EmptyState";
 import Header from "./containers/Header";
+import "./styles/DarkMode.css";
 
 import "./styles/Spinner.css";
 import "./App.css";
 
 function App() {
-  const [Users, setUsers] = useState([]);
-  const [Loading, setLoading] = useState(true);
-  const [CurrentPage, setCurrentPage] = useState(1);
-  const [TotalUsers, setTotalUsers] = useState(0);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalUsers, setTotalUsers] = useState(0);
 
   // Have to take care that page No here is 1 greater than the backend.
   // So, while making fetchCall, pass arguments 1 less than the required page. i.e fetchPage(requiredPage-1);
-  const fetchpage = async (pageNo) => {
+  const fetchPage = async (pageNo) => {
     try {
       // We have to fetch 1 page less than the pageAsked.
       const res = await getUsersPageAPI(pageNo - 1);
@@ -38,7 +39,7 @@ function App() {
   };
 
   useEffect(() => {
-    fetchpage(CurrentPage);
+    fetchPage(currentPage);
 
     //Uncomment if you want to show the loader for 3 sec initially
     /*
@@ -46,45 +47,45 @@ function App() {
     fetchPage(CurrentPage - 1);
     }, 3000);
     */
-  }, [CurrentPage]);
+  }, [currentPage]);
 
   return (
     <div className="main-container">
-      {Loading ? (
+      {loading ? (
         <div className="spinner-div">
           <Spinner />
         </div>
-      ) : !TotalUsers ? (
+      ) : !totalUsers ? (
         <>
           <Header
-            fetchpage={fetchpage}
-            currentPage={CurrentPage}
-            totalusers={TotalUsers}
+            fetchPage={fetchPage}
+            currentPage={currentPage}
+            totalusers={totalUsers}
           />
           <EmptyState />
         </>
       ) : (
         <>
           <Header
-            fetchpage={fetchpage}
-            currentPage={CurrentPage}
-            totalusers={TotalUsers}
+            fetchPage={fetchPage}
+            currentPage={currentPage}
+            totalUsers={totalUsers}
           />
           <CardList
-            Users={Users}
+            usersList={users}
             setUsers={setUsers}
-            fetchpage={fetchpage}
-            currentPage={CurrentPage}
+            fetchPage={fetchPage}
+            currentPage={currentPage}
           />
           <Pagination
             className="pagination-container"
-            onChange={(Currentpage) => {
-              setCurrentPage(Currentpage);
+            onChange={(currentPage) => {
+              setCurrentPage(currentPage);
             }}
-            current={CurrentPage}
+            current={currentPage}
             defaultCurrent={1} // Default Page to open for first render
             defaultPageSize={4} // No of elements in a page
-            total={TotalUsers} // Total no of users overall, and according to this Total pages will be decided.
+            total={totalUsers} // Total no of users overall, and according to this Total pages will be decided.
           />
         </>
       )}

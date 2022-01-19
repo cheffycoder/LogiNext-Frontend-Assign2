@@ -4,17 +4,17 @@ import UserCard from "../../containers/UserCard";
 import "../../styles/Spinner.css";
 import "../../styles/CardList.css";
 
-const CardList = ({ Users, setUsers, fetchpage, currentPage }) => {
+const CardList = ({ usersList, setUsers, fetchPage, currentPage }) => {
   return (
     <div className="card-list-container">
-      {Users.map((user) => {
+      {usersList.map((user) => {
         return (
-          <div className="outerUserCard" key={user.id}>
+          <div className="outer-user-card" key={user.id}>
             <UserCard
               user={user}
-              usersList={Users}
+              usersList={usersList}
               setUsers={setUsers}
-              fetchpage={fetchpage}
+              fetchPage={fetchPage}
               currentPage={currentPage}
             />
           </div>
