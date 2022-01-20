@@ -12,7 +12,7 @@ import {
 
 import UserDesc from "../../components/UserDescription";
 import ToggleLike from "../../functionalities/toggleLike";
-import RemoveUser from "../../functionalities/removeUser";
+import confirmUserDeletion from "../../modal/confirmDeleteNotification";
 
 const { Meta } = Card;
 
@@ -48,7 +48,7 @@ const UserCard = ({ usersList, setUsers, user, fetchPage, currentPage }) => {
         />,
         <DeleteFilled
           key={user.id}
-          onClick={() => RemoveUser(user.id, currentPage, fetchPage)}
+          onClick={() => confirmUserDeletion(user.id, currentPage, fetchPage)}
           style={{ fontSize: "18px" }}
         />,
       ]}

@@ -1,13 +1,8 @@
 import { AddUserAPI } from "../services/apiHandler";
 
-const addUser = (
-  currentPage,
-  totalUsers,
-  fetchPage,
-  setIsAddUserModalVisible,
-  payload
-) => {
-  AddUserAPI(payload);
+const addUser = async (currentPage, totalUsers, fetchPage, payload) => {
+  await AddUserAPI(payload);
+
   // If currentpage is full then fetch next page
   if (currentPage * 4 === totalUsers) {
     // console.log("fetching page in form submission", currentPage + 1);
@@ -19,7 +14,6 @@ const addUser = (
     // );
     fetchPage(currentPage);
   }
-  setIsAddUserModalVisible(false);
 };
 
 export default addUser;

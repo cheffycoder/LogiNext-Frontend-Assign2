@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button } from "antd";
 import { Form, Input } from "antd";
 import addUser from "../../functionalities/addUser";
+import actionNotification from "../actionNotification";
 
 const layout = {
   labelCol: {
@@ -42,15 +43,12 @@ const AddUserModal = ({
     address,
   };
 
-  const handleSubmit = () => {
-    addUser(
-      currentPage,
-      totalUsers,
-      fetchPage,
-      setIsAddUserModalVisible,
-      payload
-    );
+  const handleSubmit = async () => {
+    await addUser(currentPage, totalUsers, fetchPage, payload);
+    await setIsAddUserModalVisible(false);
     form.resetFields();
+
+    actionNotification("added", name);
   };
 
   const handleCancel = () => {
@@ -64,7 +62,7 @@ const AddUserModal = ({
         visible={isAddUserModalVisible}
         style={{ top: "5%" }}
         onCancel={handleCancel}
-        footer={[]}
+        footer={null}
       >
         <Form form={form} className="form-input" onFinish={handleSubmit}>
           <Form.Item
@@ -151,7 +149,7 @@ const AddUserModal = ({
             wrapperCol={{ ...layout.wrapperCol, offset: 8 }}
             style={{ margin: "0px" }}
           >
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="xyz">
               Submit
             </Button>
           </Form.Item>
